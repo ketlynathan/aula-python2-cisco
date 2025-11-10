@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Módulos e Namespaces Python</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Demonstração de Módulos (Cálculo de Empréstimo)</h1>
+        <p class="description">
+            Este app usa um <strong>MÓDULO PYTHON</strong> (`calculo.py`) para calcular a prestação. 
+            Isso demonstra a **organização de código** e o conceito de **Namespace** em ação.
+        </p>
+
+        <div class="form-group">
+            <label for="principal">Valor do Empréstimo (R$):</label>
+            <input type="number" id="principal" value="300000" min="1000">
+        </div>
+        <div class="form-group">
+            <label for="taxa_anual">Taxa de Juros Anual (%):</label>
+            <input type="number" id="taxa_anual" value="6" step="0.1" min="0">
+        </div>
+        <div class="form-group">
+            <label for="anos">Prazo (Anos):</label>
+            <input type="number" id="anos" value="30" min="1">
+        </div>
+
+        <button onclick="calcularPrestacao()">Calcular Prestação</button>
+
+        <div class="result-box">
+            <h2>Resultado:</h2>
+            <p id="resultado-valor">Aguardando dados...</p>
+        </div>
+
+        <div class="explanation-box">
+            <h2>Namespace em Ação:</h2>
+            <p id="explicacao"></p>
+        </div>
+    </div>
+
+<script>
+    function calcularPrestacao() {
+        const principal = document.getElementById('principal').value;
+        const taxa_anual = document.getElementById('taxa_anual').value;
+        const anos = document.getElementById('anos').value;
+
+        // 1. O JavaScript envia os dados para a API Flask (o 'código principal')
+        
+        // MUDANÇA AQUI: Use o URL absoluto da sua API
+        fetch('http://127.0.0.1:5000/calcularemprestimo', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                principal: principal,
+                taxa_anual: taxa_anual,
+                anos: anos
+            }),
+        })
+        .then(response => {
+            if (!response.ok) {
+                // Se a resposta da API não for 200 (OK), trata como erro
+                throw new Error(`Erro HTTP: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            const resultadoValor = document.getElementById('resultado-valor');
+            const explicacao = document.getElementById('explicacao');
+
+            if (data.status === 'sucesso') {
+                // 2. O Flask (código principal) usou o MÓDULO e retornou o resultado.
+                resultadoValor.innerHTML = `Prestação Mensal: <strong>R$ ${data.prestacao.toLocaleString('pt-BR')}</strong>`;
+                explicacao.textContent = data.explicacao;
+                resultadoValor.style.backgroundColor = '#d4edda'; // Fundo verde para sucesso
+            } else {
+                resultadoValor.innerHTML = `Erro: ${data.mensagem}`;
+                explicacao.textContent = 'Verifique os dados inseridos.';
+                resultadoValor.style.backgroundColor = '#f8d7da'; // Fundo vermelho para erro
+            }
+        })
+        .catch((error) => {
+            console.error('Erro:', error);
+            // Este é o erro que você estava vendo
+            document.getElementById('resultado-valor').innerHTML = 'Erro de conexão com a API. (Verifique o CORS e se o backend está rodando)';
+        });
+    }
+</script>
+
+</body>
+</html>
+</body>
+</html>

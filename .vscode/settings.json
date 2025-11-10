@@ -1,0 +1,6 @@
+{
+    "files.autoSave": "onFocusChange",
+    "editor.mouseWheelZoom": true,
+    "accessibility.debugWatchVariableAnnouncements": false,
+    "editor.trimWhitespaceOnDelete": true
+}
