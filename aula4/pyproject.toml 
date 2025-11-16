@@ -1,0 +1,14 @@
+[project]
+name = "aula4-scanner"
+version = "0.1.0"
+requires-python = ">=3.14"
+description = "Projeto de scanner (Aula 4) - estrutura profissional"
+
+
+[project.optional-dependencies]
+test = ["pytest"]
+
+
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"

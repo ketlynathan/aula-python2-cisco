@@ -1,0 +1,16 @@
+# Aula4 - Scanner (estrutura)
+
+
+Projeto de exemplo com separação em `src/` e testes em `tests/`.
+
+
+Como usar:
+
+
+1. Criar um venv: `python -m venv .venv` e ativar
+2. Instalar dependências: `pip install -r requirements.txt`
+3. Rodar: `make run` ou `python main.py`
+4. Testar: `make test`
+
+
+Estrutura modular, código testável e timezone-aware.
