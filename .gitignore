@@ -1,0 +1,22 @@
+.venv
+.git
+__pycache__/
+.env
+.venv/
+*.pyc
+*.pyo
+*.pyd
+*.egg-info/
+dist/
+build/
+.coverage
+.pytest_cache/
+# VSCode
+.vscode/
+
+
+# Byte-compiled / optimized / DLL files
+
+
+# macOS
+.DS_Store

@@ -1,0 +1,175 @@
+/* === BASE === */
+:root {
+    --primary: #004aad;
+    --secondary: #007bff;
+    --success: #28a745;
+    --error: #dc3545;
+    --bg-light: #f4f7fb;
+    --text-dark: #222;
+    --text-gray: #555;
+    --radius: 12px;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: "Inter", "Segoe UI", sans-serif;
+    background: linear-gradient(135deg, #f8faff, #e6ebf2);
+    color: var(--text-dark);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+/* === LAYOUT === */
+.app-container {
+    background: #fff;
+    padding: 40px;
+    border-radius: var(--radius);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+    max-width: 750px;
+    width: 100%;
+}
+
+.app-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.app-header h1 {
+    color: var(--primary);
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    color: var(--text-gray);
+    font-size: 1rem;
+}
+
+/* === FORM === */
+.form-card h2 {
+    color: var(--primary);
+    margin-bottom: 15px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 600;
+    color: var(--text-dark);
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    border-radius: var(--radius);
+    font-size: 1rem;
+    transition: 0.2s ease;
+}
+
+.form-group input:focus {
+    border-color: var(--primary);
+    outline: none;
+    box-shadow: 0 0 6px rgba(0, 74, 173, 0.2);
+}
+
+/* === BOTÃO === */
+button {
+    background: var(--success);
+    color: #fff;
+    padding: 12px;
+    border: none;
+    border-radius: var(--radius);
+    cursor: pointer;
+    font-size: 1.1rem;
+    font-weight: 600;
+    width: 100%;
+    transition: background 0.3s ease, transform 0.2s;
+}
+
+button:hover {
+    background: #218838;
+    transform: scale(1.02);
+}
+
+/* === RESULTADO === */
+.result-card {
+    margin-top: 25px;
+}
+
+.result-card h2 {
+    color: var(--primary);
+    margin-bottom: 10px;
+}
+
+.resultado-text {
+    font-size: 1.5rem;
+    text-align: center;
+    font-weight: 600;
+    padding: 15px;
+    border-radius: var(--radius);
+    transition: all 0.3s ease;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+}
+
+.resultado-text.success {
+    background-color: #d4edda;
+    color: var(--success);
+    border-color: #c3e6cb;
+}
+
+.resultado-text.error {
+    background-color: #f8d7da;
+    color: var(--error);
+    border-color: #f5c6cb;
+}
+
+/* === EXPLICAÇÃO === */
+.explanation-card {
+    margin-top: 25px;
+    background: #eef3f9;
+    border-left: 6px solid var(--secondary);
+    border-radius: var(--radius);
+    padding: 20px;
+}
+
+.explanation-card h2 {
+    color: var(--secondary);
+    margin-bottom: 10px;
+}
+
+/* === FOOTER === */
+.app-footer {
+    margin-top: 30px;
+    text-align: center;
+    color: var(--text-gray);
+    font-size: 0.9rem;
+}
+
+/* === RESPONSIVIDADE === */
+@media (max-width: 600px) {
+    .app-container {
+        padding: 25px 20px;
+    }
+
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    button {
+        font-size: 1rem;
+    }
+}

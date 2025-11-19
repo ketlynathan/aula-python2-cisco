@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cálculo de Empréstimo | Módulos e Namespaces</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <main class="app-container">
+        <header class="app-header">
+            <h1>💰 Cálculo de Empréstimo</h1>
+            <p class="subtitle">
+                Demonstração de <strong>Módulos Python</strong> e o conceito de <strong>Namespace</strong>.
+            </p>
+        </header>
+
+        <section class="card form-card">
+            <h2>Insira os Dados</h2>
+            <form id="emprestimoForm" onsubmit="event.preventDefault(); calcularPrestacao();">
+                <div class="form-group">
+                    <label for="principal">Valor do Empréstimo (R$)</label>
+                    <input type="number" id="principal" name="principal" value="300000" min="1000" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="taxa_anual">Taxa de Juros Anual (%)</label>
+                    <input type="number" id="taxa_anual" name="taxa_anual" value="6" step="0.1" min="0" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="anos">Prazo (Anos)</label>
+                    <input type="number" id="anos" name="anos" value="30" min="1" required>
+                </div>
+
+                <button type="submit">Calcular Prestação</button>
+            </form>
+        </section>
+
+        <section class="card result-card">
+            <h2>Resultado</h2>
+            <p id="resultado-valor" class="resultado-text">Aguardando dados...</p>
+        </section>
+
+        <section class="card explanation-card">
+            <h2>🧠 Namespace em Ação</h2>
+            <p id="explicacao">Execute o cálculo para ver como o módulo Python é utilizado no backend!</p>
+        </section>
+
+        <footer class="app-footer">
+            <p>Desenvolvido com ❤️ em Flask</p>
+        </footer>
+    </main>
+
+    <script>
+        async function calcularPrestacao() {
+            const principal = document.getElementById('principal').value;
+            const taxa_anual = document.getElementById('taxa_anual').value;
+            const anos = document.getElementById('anos').value;
+
+            try {
+                const response = await fetch('http://127.0.0.1:5000/calcularemprestimo', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ principal, taxa_anual, anos }),
+                });
+
+                if (!response.ok) throw new Error(`Erro HTTP: ${response.status}`);
+                const data = await response.json();
+
+                const resultadoValor = document.getElementById('resultado-valor');
+                const explicacao = document.getElementById('explicacao');
+
+                if (data.status === 'sucesso') {
+                    resultadoValor.innerHTML = `Prestação Mensal: <strong>R$ ${data.prestacao.toLocaleString('pt-BR')}</strong>`;
+                    resultadoValor.classList.add('success');
+                    resultadoValor.classList.remove('error');
+                    explicacao.textContent = data.explicacao;
+                } else {
+                    resultadoValor.innerHTML = `Erro: ${data.mensagem}`;
+                    resultadoValor.classList.add('error');
+                    resultadoValor.classList.remove('success');
+                    explicacao.textContent = 'Verifique os dados inseridos.';
+                }
+            } catch (error) {
+                document.getElementById('resultado-valor').innerHTML = '⚠️ Erro ao conectar com a API.';
+                document.getElementById('resultado-valor').classList.add('error');
+            }
+        }
+    </script>
+</body>
+</html>
